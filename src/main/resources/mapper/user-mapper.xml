@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.elec5619.community.dao.UserMapper">
+
+    <select id="selectById" resultType="com.elec5619.community.entity.User">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
+    <select id="selectByName" resultType="com.elec5619.community.entity.User">
+        SELECT * FROM user WHERE username = #{username}
+    </select>
+    <select id="selectByEmail" resultType="com.elec5619.community.entity.User">
+        SELECT * FROM user WHERE email = #{email}
+    </select>
+    <insert id="insertUser" parameterType="com.elec5619.community.entity.User" keyProperty="id">
+        INSERT INTO user (username, password, salt, email, type, status, activation_code, header_url, create_time)
+        VALUES (#{username}, #{password}, #{salt}, #{email}, #{type}, #{status}, #{activationCode}, #{headerUrl}, #{createTime})
+    </insert>
+    <update id="updateStatus" keyProperty="id">
+        UPDATE user SET status = #{status} WHERE id = #{id}
+    </update>
+    <update id="updateHeader" keyProperty="id">
+        UPDATE user SET header_url = #{headerUrl} WHERE id = #{id}
+    </update>
+    <update id="updatePassword" keyProperty="id">
+        UPDATE user SET password = #{password} WHERE id = #{id}
+    </update>
+</mapper>

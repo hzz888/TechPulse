@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/global.css}" />
+	<title>TechPulse-Follow</title>
+</head>
+<body>
+	<div class="nk-container">
+		<!-- header -->
+		<header class="bg-dark sticky-top" th:replace="index::header">
+			<div class="container">
+				<!-- nav -->
+				<nav class="navbar navbar-expand-lg navbar-dark">
+					<!-- logo -->
+					<a class="navbar-brand" href="#"></a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<!-- functions -->
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item ml-3 btn-group-vertical">
+								<a class="nav-link" href="../index.html">Main page</a>
+							</li>
+							<li class="nav-item ml-3 btn-group-vertical">
+								<a class="nav-link position-relative" href="letter.html">Message<span class="badge badge-danger">12</span></a>
+							</li>
+							<li class="nav-item ml-3 btn-group-vertical">
+								<a class="nav-link" href="register.html">Sign Up</a>
+							</li>
+							<li class="nav-item ml-3 btn-group-vertical">
+								<a class="nav-link" href="login.html">Login</a>
+							</li>
+							<li class="nav-item ml-3 btn-group-vertical dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item text-center" href="profile.html">Personal Page</a>
+									<a class="dropdown-item text-center" href="setting.html">Settings </a>
+									<a class="dropdown-item text-center" href="login.html">Logout</a>
+								</div>
+							</li>
+						</ul>
+						<form class="form-inline my-2 my-lg-0" action="search.html">
+							<input class="form-control mr-sm-2" type="search" aria-label="Search" />
+							<button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+						</form>
+					</div>
+				</nav>
+			</div>
+		</header>
+
+		<div class="main">
+			<div class="container">
+				<div class="position-relative">
+					<ul class="nav nav-tabs mb-3">
+						<li class="nav-item">
+							<a class="nav-link position-relative" th:href="@{|/followees/${user.id}|}"><i class="text-info" th:utext="${user.username}"></i> Following</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link position-relative active" th:href="@{|/followers/${user.id}|}">Following <i class="text-info" th:utext="${user.username}"></i> people</a>
+						</li>
+					</ul>
+					<a th:href="@{|/user/profile/${user.id}|}" class="text-muted position-absolute rt-0">Back to personal page&gt;</a>
+				</div>
+
+				<ul class="list-unstyled">
+					<li class="media pb-3 pt-3 mb-3 border-bottom position-relative" th:each="map:${users}">
+						<a th:href="@{|/user/profile/${map.user.id}|}">
+							<img th:src="${map.user.headerUrl}" class="mr-4 rounded-circle user-header" alt="profile picture" >
+						</a>
+						<div class="media-body">
+							<h6 class="mt-0 mb-3">
+								<span class="text-success" th:utext="${map.user.username}"></span>
+								<span class="float-right text-muted font-size-12"><i th:text="${#dates.format(map.followTime, 'yyyy-MM-dd HH:mm:ss')}"></i></span>
+							</h6>
+							<div>
+								<input type="hidden" id="entityId" th:value="${map.user.id}">
+								<button type="button" th:text="${map.hasFollowed?'Followed':'Follow'}" th:if="${loginUser!=null&&loginUser.id!=map.user.id}" th:class="|btn ${map.hasFollowed?'btn-secondary':'btn-info'} btn-sm float-right follow-btn|">Follow</button>
+							</div>
+						</div>
+					</li>
+				</ul>
+
+				<nav class="mt-5">
+					<ul class="pagination justify-content-center" th:replace="index::pagination">
+						<li class="page-item"><a class="page-link" href="#">Main page</a></li>
+						<li class="page-item disabled"><a class="page-link" href="#">Previous page</a></li>
+						<li class="page-item active"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#">4</a></li>
+						<li class="page-item"><a class="page-link" href="#">5</a></li>
+						<li class="page-item"><a class="page-link" href="#">Next page</a></li>
+						<li class="page-item"><a class="page-link" href="#">end</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+		<footer class="bg-dark" style="text-align: center; width: 100%; position: absolute; bottom: 0; color: white;" th:fragment="footer">
+			ELEC5619 Group Project.
+		</footer>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<script th:src="@{/js/global.js}"></script>
+	<script th:src="@{/js/profile.js}"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/global.css}" />
+	<link rel="stylesheet" th:href="@{/css/login.css}" />
+	<title>TechPulse-Settings</title>
+</head>
+<body>
+	<div class="nk-container">
+		<header class="bg-dark sticky-top" th:replace="index::header"></header>
+
+		<div class="main">
+			<div class="container p-5 mt-3 mb-3">
+				<h6 class="text-left text-info border-bottom pb-2">Upload Photo</h6>
+				<form class="mt-5" method="post" enctype="multipart/form-data" th:action="@{/user/upload}">
+					<div class="form-group row mt-4">
+						<label for="head-image" class="col-sm-2 col-form-label text-right">Choose:</label>
+						<div class="col-sm-10">
+							<div class="custom-file">
+								<input type="file" name="headerImage" th:class="|custom-file-input ${error!=null?'is-invalid':''}|" id="head-image" lang="es" required="">
+								<label class="custom-file-label" for="head-image" data-browse="Pic">Choose a picture</label>
+								<div class="invalid-feedback" th:text="${error}">
+									Uploading failed!
+								</div>
+							</div>		
+						</div>
+					</div>
+					<div class="form-group row mt-4">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-10 text-center">
+							<button type="submit" class="btn btn-info text-white form-control">Upload</button>
+						</div>
+					</div>
+				</form>
+				<h6 class="text-left text-info border-bottom pb-2 mt-5">Change Password</h6>
+				<form class="mt-5" th:action="@{/user/updatePassword}" method="post">
+					<div class="form-group row mt-4">
+						<label for="old-password" class="col-sm-2 col-form-label text-right">Current Password:</label>
+						<div class="col-sm-10">
+							<input type="password" name="oldPassword" th:value="${param.oldPassword}" th:class="|form-control ${oldPasswordMsg!=null?'is-invalid':''}|" id="old-password" placeholder="Current Password" required>
+							<div class="invalid-feedback" th:text="${oldPasswordMsg}">
+								Password length cannot be less than 8 characters!
+							</div>							
+						</div>
+					</div>
+					<div class="form-group row mt-4">
+						<label for="new-password" class="col-sm-2 col-form-label text-right">New Password:</label>
+						<div class="col-sm-10">
+							<input type="password" name="newPassword" th:value="${param.newPassword}" th:class="|form-control ${newPasswordMsg!=null?'is-invalid':''}|" class="form-control" id="new-password" placeholder="New Password" required>
+							<div class="invalid-feedback" th:text="${newPasswordMsg}">
+								Password length cannot be less than 8 characters!
+							</div>							
+						</div>
+					</div>
+					<div class="form-group row mt-4">
+						<label for="confirm-password" class="col-sm-2 col-form-label text-right">Confirm Password:</label>
+						<div class="col-sm-10">
+							<input type="password" name="confirmPassword" th:value="${param.confirmPassword}" th:class="|form-control ${confirmPasswordMsg!=null?'is-invalid':''}|" id="confirm-password" placeholder="New Password" required>
+							<div class="invalid-feedback" th:text="${confirmPasswordMsg}">
+								Password mismatch!
+							</div>								
+						</div>
+					</div>				
+					<div class="form-group row mt-4">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-10 text-center">
+							<button type="submit" class="btn btn-info text-white form-control">Save</button>
+						</div>
+					</div>
+				</form>				
+			</div>
+		</div>
+
+		<footer class="bg-dark" style="text-align: center; width: 100%; position: absolute; bottom: 0; color: white;" th:replace="index::footer">
+			ELEC5619 Group Project.
+		</footer>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js" crossorigin="anonymous"></script>
+	<script th:src="@{/js/global.js}"></script>
+	<script>
+		$(function(){
+			bsCustomFileInput.init();
+		});
+	</script>
+</body>
+</html>

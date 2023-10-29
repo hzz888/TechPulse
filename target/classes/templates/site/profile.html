@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/global.css}" />
+	<title>TechPulse-Profile</title>
+</head>
+<body>
+	<div class="nk-container">
+
+		<header class="bg-dark sticky-top" th:replace="index::header"></header>
+
+		<div class="main">
+			<div class="container">
+				<div class="position-relative">
+					<ul class="nav nav-tabs">
+						<li class="nav-item">
+							<a class="nav-link active" th:href="@{|/user/profile/${user.id}|}">Personal Information</a>
+						</li>
+					</ul>
+				</div>
+				<div class="media mt-5">
+					<img th:src="@{${user.headerUrl}}" class="align-self-start mr-4 rounded-circle" alt="User Picture" style="width:50px;">
+					<div class="media-body">
+						<h5 class="mt-0 text-warning">
+							<span th:utext="${user.username}">TechPulse</span>
+							<input type="hidden" id="entityId" th:value="${user.id}">
+							<button type="button" th:class="|btn ${hasFollowed?'btn-secondary':'btn-info'} btn-sm float-right mr-5 follow-btn|" th:if="${loginUser!=null&&loginUser.id!=user.id}" th:text="${hasFollowed?'Followed':'Follow'}">Follow</button>
+						</h5>
+						<div class="text-muted mt-3">
+							<span>Sign Up at <i class="text-muted" th:text="${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')}"></i></span>
+						</div>
+						<div class="text-muted mt-3 mb-5">
+							<span>Followed <a class="text-primary" th:href="@{|/followees/${user.id}|}" th:text="${followeeCount}">5</a> people</span>
+							<span class="ml-4">Follower <a class="text-primary" th:href="@{|/followers/${user.id}|}" th:text="${followerCount}"></a> people</span>
+							<span class="ml-4">Obtained <i class="text-danger" th:text="${likeCount}"></i> likes</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer class="bg-dark" style="text-align: center; width: 100%; position: absolute; bottom: 0; color: white;" th:replace="index::footer">
+			ELEC5619 Group Project.
+		</footer>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<script th:src="@{/js/global.js}"></script>
+	<script th:src="@{/js/profile.js}"></script>
+</body>
+</html>

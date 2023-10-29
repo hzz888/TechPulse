@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>TechPulse-Activation</title>
+</head>
+<body>
+	<div>
+		<p>
+			<span>Hello, </span><b th:text="${email}"></b>
+		</p>
+		<p>
+			You are signing up our community, this is an activation email, please click the link in 1 minute.
+			<br/>
+			<a th:href="${url}">Activation Link</a>
+		</p>
+	</div>
+</body>
+</html>

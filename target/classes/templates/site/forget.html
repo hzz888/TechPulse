@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/global.css}" />
+	<link rel="stylesheet" th:href="@{/css/login.css}" />
+	<title>TechPulse-Forget Password</title>
+</head>
+<body>
+	<div class="nk-container">
+		<header class="bg-dark sticky-top" th:replace="index::header"></header>
+
+		<div class="main">
+			<div class="container pl-5 pr-5 pt-3 pb-3 mt-3 mb-3">
+				<h3 class="text-center text-info border-bottom pb-3">Reset Password</h3>
+				<form class="mt-5" th:action="@{/forget}" method="post">
+					<div class="form-group row">
+						<label for="your-email" class="col-sm-2 col-form-label text-right">Email:</label>
+						<div class="col-sm-10">
+							<input type="email" name="email" th:value="${param.email}" th:class="|form-control ${emailMsg!=null?'is-invalid':''}|" id="your-email" placeholder="Email" required>
+							<div class="invalid-feedback" th:text="${emailMsg}">
+								Email not exist!
+							</div>
+						</div>
+					</div>
+					<div class="form-group row mt-4">
+						<label for="verifycode" class="col-sm-2 col-form-label text-right">Verification Code:</label>
+						<div class="col-sm-6">
+							<input type="text" name="code" th:class="|form-control ${codeMsg!=null?'is-invalid':''}|" id="verifycode" placeholder="Verification Code">
+							<div class="invalid-feedback" th:text="${codeMsg}">
+								Code incorrect!
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<a href="javascript:getCode();" class="btn btn-info form-control" id="getCodeButton">Send code</a>
+						</div>
+					</div>	
+					<div class="form-group row mt-4">
+						<label for="your-password" class="col-sm-2 col-form-label text-right">New Password:</label>
+						<div class="col-sm-10">
+							<input type="password" name="password" th:value="${param.password}" th:class="|form-control ${passwordMsg!=null?'is-invalid':''}|" id="your-password" placeholder="New Password" required>
+							<div class="invalid-feedback" th:text="${passwordMsg}">
+								Password must has at least 8 characters.
+							</div>							
+						</div>
+					</div>
+					<div class="form-group row mt-4">
+						<label for="confirm-password" class="col-sm-2 col-form-label text-right">Confirm Password:</label>
+						<div class="col-sm-10">
+							<input type="password" name="confirmPassword" th:value="${param.confirmPassword}" th:class="|form-control ${confirmPasswordMsg!=null?'is-invalid':''}|" id="confirm-password" placeholder="Confirm Password" required>
+							<div class="invalid-feedback" th:text="${passwordMsg}">
+								Password mismatch.
+							</div>
+						</div>
+					</div>
+					<div class="form-group row mt-4">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-10 text-center">
+							<button type="submit" class="btn btn-info text-white form-control">Reset Password</button>
+						</div>
+					</div>
+				</form>				
+			</div>
+		</div>
+
+		<footer class="bg-dark" style="text-align: center; width: 100%; position: absolute; bottom: 0; color: white;" th:replace="index::footer">
+			ELEC5619 Group Project.
+		</footer>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	<script th:src="@{/js/global.js}"></script>
+	<script>
+		function getCode() {
+			var email = $("#your-email").val();
+			location.href = CONTEXT_PATH + "/code" + "?email=" + email;
+		}
+	</script>
+</body>
+</html>
